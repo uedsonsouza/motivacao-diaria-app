@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import "animate.css/animate.min.css";
 
+const BackgroundVideo = styled.video`
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.7;
+`;
 const HeaderContainer = styled.div`
   position: fixed;
   top: 16px;
@@ -66,6 +77,7 @@ const MotivationQuote = () => {
         const response = await fetch(
           "https://api.realinspire.live/v1/quotes/random"
         );
+        console.log("Response status:", response);
         if (!response.ok) {
           throw new Error("Http error! Status: " + response.status);
         }
@@ -75,7 +87,6 @@ const MotivationQuote = () => {
           text: data[randomIndex].content,
           author: data[randomIndex].author,
         });
-        setLoading(false);
       } catch (err) {
         console.error("Error fetching quote:", err);
         setError("Error fetching quote. Please try again later.");
@@ -86,9 +97,15 @@ const MotivationQuote = () => {
 
     fetchQuote();
   }, []);
-
   if (loading) {
-    return <QuoteContainerLoading>Loading...</QuoteContainerLoading>;
+    return (
+      <QuoteContainerLoading>
+        loading...
+        <BackgroundVideo autoPlay loop muted>
+          <source src="/chuva.mp4" type="video/mp4" />
+        </BackgroundVideo>
+      </QuoteContainerLoading>
+    );
   }
   if (error) {
     return <QuoteContainerError>{error}</QuoteContainerError>;
@@ -96,6 +113,10 @@ const MotivationQuote = () => {
 
   return (
     <>
+      <BackgroundVideo autoPlay loop muted>
+        <source src="/chuva.mp4" type="video/mp4" />
+      </BackgroundVideo>
+
       <HeaderContainer>
         <a
           href="https://github.com/uedsonsouza"
