@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "animate.css/animate.min.css";
 
-const BackgroundVideo = styled.video`
+const Video = styled.video`
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@ const BackgroundVideo = styled.video`
   z-index: -1;
   opacity: 0.7;
 `;
-const HeaderContainer = styled.div`
+const Container = styled.div`
   position: fixed;
   top: 16px;
   right: 16px;
@@ -65,6 +65,27 @@ const QuoteContainerLoading = styled.p`
   color: #333;
 `;
 
+const BackgroundVideo = () => (
+  <Video autoPlay loop muted>
+    <source src="/chuva.mp4" type="video/mp4" />
+  </Video>
+);
+
+const HeaderContainer = () => (
+  <Container>
+    <a
+      href="https://github.com/uedsonsouza"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        src="https://img.shields.io/badge/Gaiek-000000?style=flat&logo=github&logoColor=white"
+        alt="GitHub Profile"
+      />
+    </a>
+  </Container>
+);
+
 const MotivationQuote = () => {
   const [quote, setQuote] = useState({ text: "", author: "" });
   const [loading, setLoading] = useState(true);
@@ -100,10 +121,7 @@ const MotivationQuote = () => {
   if (loading) {
     return (
       <QuoteContainerLoading>
-        loading...
-        <BackgroundVideo autoPlay loop muted>
-          <source src="/chuva.mp4" type="video/mp4" />
-        </BackgroundVideo>
+        <BackgroundVideo />
       </QuoteContainerLoading>
     );
   }
@@ -113,23 +131,8 @@ const MotivationQuote = () => {
 
   return (
     <>
-      <BackgroundVideo autoPlay loop muted>
-        <source src="/chuva.mp4" type="video/mp4" />
-      </BackgroundVideo>
-
-      <HeaderContainer>
-        <a
-          href="https://github.com/uedsonsouza"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="https://img.shields.io/badge/Gaiek-000000?style=flat&logo=github&logoColor=white"
-            alt="GitHub Profile"
-          />
-        </a>
-      </HeaderContainer>
-
+      <BackgroundVideo />
+      <HeaderContainer />
       <QuoteContainer>
         <QuoteText>{quote.text}</QuoteText>
         <QuoteAuthor>{quote.author}</QuoteAuthor>
