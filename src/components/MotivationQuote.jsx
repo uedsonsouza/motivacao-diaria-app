@@ -98,7 +98,6 @@ const MotivationQuote = () => {
         const response = await fetch(
           "https://api.realinspire.live/v1/quotes/random"
         );
-        console.log("Response status:", response);
         if (!response.ok) {
           throw new Error("Http error! Status: " + response.status);
         }
